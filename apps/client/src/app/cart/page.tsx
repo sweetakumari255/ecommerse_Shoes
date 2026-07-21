@@ -1,9 +1,9 @@
 "use client";
 
+import RazorpayPaymentForm from "@/components/RazorpayPaymentForm";
 import ShippingForm from "@/components/ShippingForm";
-import StripePaymentForm from "@/components/StripePaymentForm";
 import useCartStore from "@/stores/cartStore";
-import { CartItemsType, ShippingFormInputs } from "@repo/types";
+import { ShippingFormInputs } from "@repo/types";
 import { ArrowRight, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -174,7 +174,7 @@ const CartPage = () => {
           ) : activeStep === 2 ? (
             <ShippingForm setShippingForm={setShippingForm} />
           ) : activeStep === 3 && shippingForm ? (
-            <StripePaymentForm shippingForm={shippingForm} />
+           <RazorpayPaymentForm shippingForm={shippingForm} />
           ) : (
             <p className="text-sm text-gray-500">
               Please fill in the shipping form to continue.

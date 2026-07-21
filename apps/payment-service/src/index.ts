@@ -1,15 +1,15 @@
+import { clerkMiddleware } from "@hono/clerk-auth";
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
-import { clerkMiddleware } from "@hono/clerk-auth";
-import sessionRoute from "./routes/session.route.js";
 import { cors } from "hono/cors";
+import sessionRoute from "./routes/session.route.js";
 import { consumer, producer } from "./utils/kafka.js";
 import { runKafkaSubscriptions } from "./utils/subscriptions.js";
-import webhookRoute from "./routes/webhooks.route.js";
+
 
 const app = new Hono();
 app.use("*", clerkMiddleware());
-app.use("*", cors({ origin: ["http://localhost:3002"] }));
+app.use("*", cors({ origin: (process.env.ALLOWED_ORIGINS || "http://localhost:3002").split(",") }));
 
 app.get("/health", (c) => {
   return c.json({
@@ -20,7 +20,7 @@ app.get("/health", (c) => {
 });
 
 app.route("/sessions", sessionRoute);
-app.route("/webhooks", webhookRoute);
+
 
 // app.post("/create-stripe-product", async (c) => {
 //   const res = await stripe.products.create({
