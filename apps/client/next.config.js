@@ -1,8 +1,9 @@
-echo '/** @type {import("next").NextConfig} */
+/** @type {import("next").NextConfig} */
 const nextConfig = {
+  output: 'export',
   eslint: {
     ignoreDuringBuilds: true,
   },
 }
 
-module.exports = nextConfig' > next.config.js
+module.exports = nextConfig
