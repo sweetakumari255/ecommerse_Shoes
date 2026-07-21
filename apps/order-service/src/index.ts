@@ -35,7 +35,7 @@ const start = async () => {
       await consumer.connect(),
     ]);
     await runKafkaSubscriptions();
-    await fastify.listen({ port: 8001 });
+    await fastify.listen({ port: 8001, host: "0.0.0.0" });
     console.log("Order service is running on port 8001");
   } catch (err) {
     console.log(err);
