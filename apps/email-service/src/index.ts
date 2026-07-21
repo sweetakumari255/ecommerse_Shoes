@@ -1,6 +1,18 @@
 import sendMail from "./utils/mailer";
 import { createConsumer, createKafkaClient } from "@repo/kafka";
 
+import http from "http";
+
+http
+  .createServer((req, res) => {
+    res.writeHead(200);
+    res.end("email-service is running");
+  })
+  .listen(process.env.PORT || 8004, () => {
+    console.log("Dummy HTTP server running for Render health check");
+  });
+
+
 const kafka = createKafkaClient("email-service");
 const consumer = createConsumer(kafka, "email-service");
 
