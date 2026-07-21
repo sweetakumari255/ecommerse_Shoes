@@ -1,10 +1,12 @@
 import Link from "next/link";
+import { Suspense } from "react";
 
-const ReturnPage = async ({
+// Inner component that uses searchParams
+async function ReturnContent({
   searchParams,
 }: {
   searchParams: Promise<{ session_id: string }> | undefined;
-}) => {
+}) {
   const session_id = (await searchParams)?.session_id;
 
   if (!session_id) {
@@ -17,12 +19,25 @@ const ReturnPage = async ({
   const data = await res.json();
 
   return (
-    <div className="">
-      <h1>Payment {data.status}</h1>
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold">Payment {data.status}</h1>
       <p>Payment status: {data.paymentStatus}</p>
-      <Link href="/orders">See your orders</Link>
+      <Link href="/orders" className="text-blue-600 hover:underline">
+        See your orders
+      </Link>
     </div>
   );
-};
+}
 
-export default ReturnPage;
+// Main component with Suspense boundary
+export default function ReturnPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ session_id: string }> | undefined;
+}) {
+  return (
+    <Suspense fallback={<div className="p-4">Loading payment details...</div>}>
+      <ReturnContent searchParams={searchParams} />
+    </Suspense>
+  );
+}
