@@ -1,4 +1,5 @@
 "use client";
+import { Suspense } from "react";
 
 import RazorpayPaymentForm from "@/components/RazorpayPaymentForm";
 import ShippingForm from "@/components/ShippingForm";
@@ -81,7 +82,7 @@ const steps = [
 //   },
 // ];
 
-const CartPage = () => {
+const CartPageContent = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [shippingForm, setShippingForm] = useState<ShippingFormInputs>();
@@ -228,4 +229,10 @@ const CartPage = () => {
   );
 };
 
-export default CartPage;
+export default function CartPage() {
+  return (
+    <Suspense fallback={<div className="p-4 text-center">Loading...</div>}>
+      <CartPageContent />
+    </Suspense>
+  );
+}
