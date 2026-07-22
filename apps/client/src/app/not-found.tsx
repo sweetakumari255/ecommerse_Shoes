@@ -1,4 +1,4 @@
-echo 'import { Suspense } from "react";
+import { Suspense } from "react";
 import Link from "next/link";
 
 function NotFoundContent() {
@@ -7,7 +7,7 @@ function NotFoundContent() {
       <h1 className="text-4xl font-bold text-gray-800 mb-4">404</h1>
       <h2 className="text-2xl font-semibold text-gray-600 mb-4">Page Not Found</h2>
       <p className="text-gray-500 mb-6 text-center">
-        Oops! The page you'\''re looking for doesn'\''t exist.
+        Oops! The page you&apos;re looking for doesn&apos;t exist.
       </p>
       <Link
         href="/"
@@ -25,4 +25,4 @@ export default function NotFound() {
       <NotFoundContent />
     </Suspense>
   );
-}' > not-found.tsx
+}
